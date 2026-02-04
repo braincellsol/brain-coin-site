@@ -273,87 +273,88 @@
         /* About Section */
         .about {
             text-align: center;
-            padding: 4rem 2rem;
+            background: transparent;
+            padding: 2rem 1rem;
+            margin: 2rem auto;
         }
 
-        .about-card {
-            display: flex;
+        .about .section-title {
+            display: inline-flex;
             align-items: center;
-            gap: 2.5rem;
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: left;
+            gap: 0.5rem;
         }
 
-        .about-icon {
-            font-size: 4rem;
-            flex-shrink: 0;
-            filter: drop-shadow(0 0 20px var(--glow));
-            animation: brainFloat 3s ease-in-out infinite;
-        }
-
-        .about-content h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .about .section-title .brain-icon {
+            -webkit-text-fill-color: initial;
+            background: none;
+            filter: drop-shadow(0 0 15px var(--glow));
         }
 
         .about-text {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin: 0;
+            line-height: 1.8;
+            margin: 1.5rem auto 0;
+            max-width: 600px;
         }
 
-        @media (max-width: 600px) {
-            .about-card {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                padding: 2rem 1.5rem;
-            }
+        .about-text strong {
+            color: var(--accent);
         }
 
         /* Tokenomics Section */
         .tokenomics {
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            padding: 4rem 2rem;
-            margin: 4rem auto;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: transparent;
+            padding: 2rem 1rem;
+            margin: 2rem auto;
+            border: none;
         }
 
         .tokenomics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .token-item {
             text-align: center;
-            padding: 2rem;
-            background: var(--bg-card);
+            padding: 1.5rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .token-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary), var(--accent));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
         .token-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.15);
+        }
+
+        .token-item:hover::before {
+            opacity: 1;
         }
 
         .token-label {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
@@ -361,14 +362,20 @@
 
         .token-value {
             color: var(--accent);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
+            animation: valuePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes valuePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         .tokenomics-tagline {
             text-align: center;
-            margin-top: 3rem;
-            font-size: 1.1rem;
+            margin-top: 2rem;
+            font-size: 1rem;
             color: var(--text-secondary);
             font-style: italic;
         }
@@ -376,43 +383,65 @@
         /* Links Section */
         .links {
             text-align: center;
+            padding: 2rem 1rem;
         }
 
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .link-card {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1.5rem 2rem;
-            background: var(--bg-card);
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
             text-decoration: none;
             color: var(--text-primary);
-            transition: all 0.3s ease;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary), var(--accent));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
         }
 
         .link-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 30px var(--glow);
             transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.15);
+        }
+
+        .link-card:hover::before {
+            opacity: 1;
         }
 
         .link-icon {
-            font-size: 2rem;
-            width: 50px;
-            height: 50px;
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
             border-radius: 12px;
+            flex-shrink: 0;
         }
 
         .link-info {
@@ -421,32 +450,48 @@
 
         .link-title {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .link-url {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             word-break: break-all;
         }
 
         /* Contract Address Special Style */
         .contract-box {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
             padding: 1.5rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
             flex-wrap: wrap;
+            position: relative;
+        }
+
+        .contract-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary), var(--accent));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
         }
 
         .contract-label {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .contract-address {
@@ -602,16 +647,11 @@
     </section>
 
     <section id="about" class="about">
-        <div class="about-card fade-in">
-            <div class="about-icon">🧠</div>
-            <div class="about-content">
-                <h2>The one that survived</h2>
-                <p class="about-text">
-                    Everyone lost braincells in this market. One made it through. Now it's leading the way.
-                    <strong>$BRAIN</strong> is for the survivors - the ones who stayed, learned, and are ready to win together.
-                </p>
-            </div>
-        </div>
+        <h2 class="section-title fade-in">The one that survived <span class="brain-icon">🧠</span></h2>
+        <p class="about-text fade-in">
+            Everyone lost braincells in this market. One made it through. Now it's leading the way.
+            <strong>$BRAIN</strong> is for the survivors - the ones who stayed, learned, and are ready to win together.
+        </p>
     </section>
 
     <section id="tokenomics" class="tokenomics fade-in">
@@ -634,7 +674,6 @@
                 <div class="token-value">0%</div>
             </div>
         </div>
-        <p class="tokenomics-tagline">"No presale. No insiders. Community first."</p>
     </section>
 
     <section id="links" class="links">
@@ -674,7 +713,7 @@
 
     <footer>
         <div class="footer-brain">🧠</div>
-        <p class="footer-text">Survivors eat first 🧠</p>
+        <p class="footer-text">Join the survivors 🧠</p>
         <p class="footer-disclaimer">
             $BRAIN is a memecoin with no intrinsic value or expectation of financial return.
             There is no formal team or roadmap. The coin is for entertainment purposes only.
