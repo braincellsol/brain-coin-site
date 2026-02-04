@@ -73,7 +73,30 @@
             z-index: 1000;
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: none;
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent,
+                var(--accent),
+                var(--accent-secondary),
+                var(--accent),
+                transparent);
+            background-size: 200% 100%;
+            animation: navGlow 3s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes navGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .nav-logo {
@@ -116,10 +139,10 @@
         }
 
         .hero-logo {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            background: var(--bg-primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,10 +156,20 @@
             overflow: hidden;
         }
 
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            box-shadow: inset 0 0 25px 10px var(--bg-primary);
+            pointer-events: none;
+            z-index: 2;
+        }
+
         .hero-logo img,
         .hero-logo video {
-            width: 130%;
-            height: 130%;
+            width: 115%;
+            height: 115%;
             object-fit: cover;
             border-radius: 50%;
             position: absolute;
@@ -240,14 +273,52 @@
         /* About Section */
         .about {
             text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .about-card {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: left;
+        }
+
+        .about-icon {
+            font-size: 4rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 20px var(--glow));
+            animation: brainFloat 3s ease-in-out infinite;
+        }
+
+        .about-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .about-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.8;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .about-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+                padding: 2rem 1.5rem;
+            }
         }
 
         /* Tokenomics Section */
@@ -514,7 +585,7 @@
     <section class="hero">
         <div class="hero-logo">
             <video autoplay loop muted playsinline>
-                <source src="brain-video.mp4" type="video/mp4">
+                <source src="brain-video.mp4?v=2" type="video/mp4">
             </video>
         </div>
         <h1>$BRAIN</h1>
@@ -531,11 +602,16 @@
     </section>
 
     <section id="about" class="about">
-        <h2 class="section-title fade-in">The one that survived</h2>
-        <p class="about-text fade-in">
-            Everyone lost braincells in this market. One made it through. Now it's leading the way.
-            <strong>$BRAIN</strong> is for the survivors - the ones who stayed, learned, and are ready to win together.
-        </p>
+        <div class="about-card fade-in">
+            <div class="about-icon">🧠</div>
+            <div class="about-content">
+                <h2>The one that survived</h2>
+                <p class="about-text">
+                    Everyone lost braincells in this market. One made it through. Now it's leading the way.
+                    <strong>$BRAIN</strong> is for the survivors - the ones who stayed, learned, and are ready to win together.
+                </p>
+            </div>
+        </div>
     </section>
 
     <section id="tokenomics" class="tokenomics fade-in">
